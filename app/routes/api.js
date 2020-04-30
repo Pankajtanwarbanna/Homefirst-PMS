@@ -60,8 +60,8 @@ module.exports = function (router){
     var client = nodemailer.createTransport({
         service : 'gmail',
         auth: {
-            user: 'EMAIL',
-            pass: 'PASS'
+            user: process.env.EMAIL,
+            pass: process.env.PASS
         }
     });
 

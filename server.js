@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 var apiRoutes = require('./app/routes/api')(router);
 var adminApiRoutes = require('./app/routes/adminApi')(router);
+var envAccess = require('dotenv').config();
 
 app.use(morgan('dev'));
 // parse application/x-www-form-urlencoded
@@ -21,7 +22,7 @@ global.__basedir = __dirname;
 let localURI = 'mongodb://localhost:27017/homefirst-pms';
 
 // connecting to mongo database
-mongoose.connect(localURI , { useNewUrlParser: true, useUnifiedTopology: true }, function (err) {
+mongoose.connect(process.env.MONGOURI , { useNewUrlParser: true, useUnifiedTopology: true }, function (err) {
     if(err) {
         console.log(err);
     } else {

@@ -45,8 +45,8 @@ module.exports = function (router){
     var client = nodemailer.createTransport({
         service : 'gmail',
         auth: {
-            user: 'EMAIL',
-            pass: 'PASS'
+            user: process.env.EMAIL,
+            pass: process.env.PASS
         }
     });
 
@@ -58,7 +58,8 @@ module.exports = function (router){
         user.name = req.body.name;
         user.username = req.body.username;
         user.email = req.body.email;
-        user.password = Math.random().toString(36).slice(-8); // generate random password, converts to string base 36 & cut off last 8 chars
+        let randomPassword = Math.random().toString(36).slice(-8);
+        user.password =  randomPassword;// generate random password, converts to string base 36 & cut off last 8 chars
         user.position = req.body.position;
         user.department = req.body.department;
         user.branch = req.body.branch;
@@ -108,7 +109,7 @@ module.exports = function (router){
                         to: user.email,
                         subject: 'Homefirst : People Management System Account activated',
                         text: 'Hello ' + user.name + 'Your account has been activated.Thank you Pankaj Tanwar',
-                        html: 'Hello <strong>' + user.name + '</strong>,<br><br> Your account has been activated.<br><br>Thank you<br>HomeFirst.'
+                        html: 'Hello <strong>' + user.name + '</strong>,<br><br> Your account has been activated. Please find below login credentials - <br><br> Username - '+ user.username +' <br> Password - '+ randomPassword +'Thank you<br>HomeFirst.'
                     };
 
                     client.sendMail(email, function (err, info) {
