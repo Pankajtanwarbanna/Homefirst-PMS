@@ -1,3 +1,7 @@
+/*
+    Directive written by - Pankaj tanwar
+*/
+
 angular.module('fileModelDirective', [])
 
 .directive('fileModel', ['$parse', function ($parse) {
